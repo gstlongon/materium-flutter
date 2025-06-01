@@ -12,11 +12,17 @@ class LoginScreen extends StatelessWidget {
     final email = _emailController.text;
     final password = _passwordController.text;
 
-    final success = await _authService.login(email, password);
-    if (success) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashboardScreen()));
+    final user = await _authService.login(email, password);
+
+    if (user != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => DashboardScreen(user: user)),
+      );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login falhou')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Login falhou')));
     }
   }
 
@@ -31,7 +37,10 @@ class LoginScreen extends StatelessWidget {
             children: [
               Icon(Icons.lock, size: 64, color: Theme.of(context).primaryColor),
               SizedBox(height: 16),
-              Text("Bem-vindo!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              Text(
+                "Bem-vindo!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 32),
               _buildInputField(
                 controller: _emailController,
@@ -50,16 +59,21 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () => _login(context),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 child: Text("Entrar"),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => RegisterScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => RegisterScreen()),
+                  );
                 },
                 child: Text("Criar conta"),
-              )
+              ),
             ],
           ),
         ),
