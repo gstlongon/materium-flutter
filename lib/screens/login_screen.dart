@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'register_screen.dart';
 import 'dashboard_screen.dart';
 import '../services/auth_service.dart';
@@ -35,7 +36,15 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.lock, size: 64, color: Theme.of(context).primaryColor),
+
+
+              SvgPicture.asset(
+                'assets/svg/logo.svg',
+                height: 333,
+                width: 240,
+              ),
+
+
               SizedBox(height: 16),
               Text(
                 "Bem-vindo!",
